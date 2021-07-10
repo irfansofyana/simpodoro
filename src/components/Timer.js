@@ -6,23 +6,58 @@ import { Container, Row, Col, Button} from 'react-bootstrap';
 export default class Timer extends Component {
     constructor(props) {
         super(props);
-        this.defaultTimeDuration = 25 * 60 // 25 minutes in seconds
+
+        this.defaultWorkDuration = 25 * 60 // 25 minutes in seconds
+        this.defaultShortRestDuration = 5 * 60 // 5 minutes in seconds
+        this.defaultLongRestDuration = 15 * 60 // 15 minutes in seconds 
+        
         this.changeTimerMode = this.changeTimerMode.bind(this);
-        this.state = {
-            isPlaying: false,
-            timerMode: 'work',
-            timeDuration: this.defaultTimeDuration,
-            resetCounter: 0,
-        }
         this.playTimer = this.playTimer.bind(this);
         this.resetRemainingTime = this.resetRemainingTime.bind(this);
+
+        this.state = {
+            isPlaying: false,
+            timerMode: 'Work',
+            timeDuration: this.defaultWorkDuration,
+            changeCounter: 0,
+            colors: [
+                ["#FF0000", 0.6],
+                ["#FFD500", 0.3],
+                ["#00FF00", 0.1],
+            ]
+        }
     }
 
-    changeTimerMode = (e) => {
-        console.log(e);
+    changeTimerMode = (mode) => {
+        let colors =  [
+            ["#FF0000", 0.6],
+            ["#FFD500", 0.3],
+            ["#00FF00", 0.1],
+        ]
+        let timeDur = this.defaultWorkDuration;
+        if (mode === "ShortRest") {
+            colors = [    
+                ["#FFD500", 0.6],
+                ["#FF8000", 0.3],
+                ["#FF0000", 0.6],
+            ]
+            timeDur = this.defaultShortRestDuration;
+        } else if (mode === "LongRest") {
+            colors = [
+                ["#00FF00", 0.6],
+                ["#FFD500", 0.3],
+                ["#FF0000", 0.1],
+            ]
+            timeDur = this.defaultLongRestDuration;
+        }
         this.setState({
-            timerMode: e
-        });
+            timerMode: mode,
+            timeDuration: timeDur,
+            colors: [...colors],
+            changeCounter: this.state.changeCounter + 1
+        }, () => {
+            this.props.changeTaskType(mode);
+        })
     }
 
     playTimer = () => {
@@ -33,7 +68,7 @@ export default class Timer extends Component {
 
     resetRemainingTime = () => {
         this.setState({
-            resetCounter: this.state.resetCounter + 1,
+            changeCounter: this.state.changeCounter + 1,
             isPlaying: false
         })
     }
@@ -45,7 +80,7 @@ export default class Timer extends Component {
         
         return (
             <div className="time-wrapper">
-                <p> <strong> Remaining Time </strong> </p>
+                <p> <strong> REMAINING TIME </strong> </p>
                 <div className="timer">{hours}:{minutes}:{seconds}</div>
             </div>
         )
@@ -58,12 +93,12 @@ export default class Timer extends Component {
                     <Row>
                         <Col>
                             <CountdownCircleTimer
-                                key={this.state.resetCounter}
+                                key={this.state.changeCounter}
                                 isPlaying={this.state.isPlaying}
                                 duration={this.state.timeDuration}
-                                colors="#361717"
+                                colors={this.state.colors}
                                 children={this.renderTime}
-                                size={350}
+                                size={280}
                                 strokeWidth={30}
                             >
                             </CountdownCircleTimer>
@@ -73,13 +108,13 @@ export default class Timer extends Component {
                 <div className="timer-button">
                     <Row>
                         <Col>
-                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("Work")}>Work</Button>
+                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("Work")}>WORK</Button>
                         </Col>
                         <Col>
-                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("ShortRest")}>Short Rest</Button>
+                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("ShortRest")}>SHORT REST</Button>
                         </Col>
                         <Col>
-                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("LongRest")}>Long Rest</Button>
+                            <Button variant="custom" sz="lg" onClick={() => this.changeTimerMode("LongRest")}>LONG REST</Button>
                         </Col>
                     </Row>
                 </div>
@@ -87,7 +122,7 @@ export default class Timer extends Component {
                     <Row>
                         <Col>
                             <Button variant="custom-long" sz="lg" block onClick={this.playTimer}>
-                                {this.state.isPlaying ? 'Stop': 'Play'}
+                                {this.state.isPlaying ? 'STOP': 'PLAY'}
                             </Button>
                         </Col>
                     </Row>
@@ -96,7 +131,7 @@ export default class Timer extends Component {
                     <Row>
                         <Col>
                             <Button variant="custom-long" sz="lg" block onClick={this.resetRemainingTime}>
-                                Reset
+                                RESET
                             </Button>
                         </Col>
                     </Row>
