@@ -1,11 +1,13 @@
 .time-wrapper{
-    font-size: 30px;
-    font-family: monospace;
+    font-size: 18px;
+    word-wrap: normal;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     color:white;
 }
 
 .timer {
-    font-size: 150%;
+    font-size: 225%;
+    font-weight: bold;
 }
 
 .timer-container {
@@ -13,7 +15,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 5%;
-    padding-top: 15%;
+    padding-top: 10%;
 }
 
 .timer-button {
@@ -24,18 +26,21 @@
 }
 
 .btn.btn {
-    height: 4rem;
+    height: 100%;
     width: 100%;
-    background-color: rgba(54, 23, 23, 1);
+    background-color: rgba(43, 49, 50, 1);
     color: white;
-    font-family: monospace;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     word-wrap: normal;
-    font-size: larger;
-    padding-bottom: 0.8rem;
     margin-bottom: 0.5rem;
+}
+
+.btn.btn-custom {
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
 .btn.btn:hover {
     color: white;
-    background-color: rgba(54, 23, 23, 0.6) ;
+    background-color: rgba(43, 49, 50, 0.5) ;
 }
