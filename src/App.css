@@ -1,10 +1,26 @@
-.App {
+.Work {
   height: 100vh;
   justify-content: center;
   align-items: center;
   font-family: sans-serif;
   text-align: center;
-  background-color: #B23A3A;
-  /* background-color: #529B2D; */
-  /* background-color: #FFAB00; */
+  background-color: #FF4444;
+}
+
+.ShortRest {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #FFAB00;
+}
+
+.LongRest {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #529B2D;
 }
